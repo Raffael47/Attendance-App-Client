@@ -3,6 +3,7 @@ import { Navbar } from '../components/general/navbar'
 import { UserPayroll } from '../components/payroll/userPayroll'
 import { useSelector } from 'react-redux'
 import { AllPayroll } from '../components/payroll/payroll'
+import { TimeRange } from '../components/general/timeRange'
 
 export const PayrollPage = () => {
     const { isAdmin } = useSelector((state) => state.userSlice.value);
@@ -12,6 +13,7 @@ export const PayrollPage = () => {
         <Navbar heading={'Payroll'}/>
     </GridItem>
     <GridItem p={5} rowSpan={1} w='100%' h={'100%'}>
+        <TimeRange/>
         {isAdmin ? (
             <AllPayroll/>
         ): (

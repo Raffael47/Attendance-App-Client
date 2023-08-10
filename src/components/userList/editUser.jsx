@@ -33,6 +33,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
                 duration: 1500,
                 isClosable: true
             });
+            window.location.reload();
         } catch (err) {
             console.log(err);
             toast({

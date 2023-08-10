@@ -56,10 +56,9 @@ function App() {
           authorization: `Bearer ${token}`
         }
       });
-      const { id, name, email, imgProfile, isAdmin, Shift, salary } = data.result;
+      const { id, name, email, imgProfile, isAdmin, Shift, salary, Role, birthdate } = data.result;
       setIsAdmin(isAdmin)
-      console.log(data.result)
-      dispatch( login( { id, name, email, imgProfile, isAdmin, Shift, salary } ) );
+      dispatch( login( { id, name, email, imgProfile, isAdmin, Shift, salary, Role, birthdate } ) );
 
     } catch (err) {
       console.log(err);

@@ -5,6 +5,7 @@ import { ChangeEmail } from '../components/profile/changeEmail'
 import { Profile } from '../components/profile/profile'
 import { ChangeName } from '../components/profile/changeName'
 import { ChangePassword } from '../components/profile/changePassword'
+import { ChangeBirthdate } from '../components/profile/changeBirthdate'
 
 export const SettingsPage = () => {
     return (
@@ -20,6 +21,7 @@ export const SettingsPage = () => {
                 <ChangeAvatar/>
                 <ChangeName />
                 <ChangeEmail/>
+                {/* <ChangeBirthdate/> */}
                 <ChangePassword/>
             </Stack>
         </GridItem>

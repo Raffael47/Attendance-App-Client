@@ -46,7 +46,7 @@ export const AllPayroll = () => {
     }
     return (
         <Stack gap='30px' mt={10}>
-            {data?.status ? (
+            {payroll.length > 0 ? (
                 <Table overflowX={'auto'} size={{base: '2xs', md: 'xs', lg: 'sm'}} color={'black'} variant={'striped'} justifyContent={'center'} alignItems={'center'}>
                 <Tr bgColor={'cyan.800'} color={'black'} borderColor={'black'}>
                     <Th onClick={() => handleOrderBy('User.name')} justifyContent={'center'} border={'1px solid black'} >Employee Name { orderBy === 'User.name' ? sort ? <Icon as={BiSolidDownArrow} color={'black'} w='3' h='3' /> : <Icon as={BiSolidUpArrow} color={'black'} w='3' h='3' /> : null }</Th>
@@ -76,7 +76,7 @@ export const AllPayroll = () => {
                 <Error404/>
             )}
 
-            {data?.status ? (
+            {payroll.length > 0 ? (
                 <Pagination totalPage={data?.totalPage} />
             ) : null }
 

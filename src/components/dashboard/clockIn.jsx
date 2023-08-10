@@ -65,6 +65,8 @@ export const ClockIn = () => {
 
     const today = new Date (year, month, day, startHour).getTime()
     const currentTime = new Date(Date.now()).getTime()
+    console.log(hour)
+    console.log(+startHour)
 
     const handleClick = () => {
         handleClockIn()
@@ -72,8 +74,7 @@ export const ClockIn = () => {
             handleLate();
         }
     }
-    
     return (
-        <ButtomTemp isDisabled={ (hour >= +startHour + 2 && hour <= startHour - 1) ? false : true } colorScheme={'cyan'} content={'Clock in'} func={handleClick} width={'100%'} />
+        <ButtomTemp isDisabled={ (hour <= +startHour + 2 && hour >= +startHour - 1) ? false : true } colorScheme={'cyan'} content={'Clock in'} func={handleClick} width={'100%'} />
     )
 }

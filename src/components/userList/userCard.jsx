@@ -3,11 +3,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { BsCircleFill } from "react-icons/bs";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { MdOutlineEmail } from "react-icons/md";
 import { EditUser } from "./editUser";
 import { convertToRp } from "../../helper/rupiah";
 
-export const UserCard = ({ imgProfile, name, id, shiftStart, ShiftId, email, salary }) => {
+export const UserCard = ({ imgProfile, name, id, shiftStart, ShiftId, email, salary, role, birthdate }) => {
     const navigate = useNavigate();
     const [ record, setRecord ] = useState([]);
     const token = localStorage.getItem('token');
@@ -53,9 +54,16 @@ export const UserCard = ({ imgProfile, name, id, shiftStart, ShiftId, email, sal
                 <Heading fontSize={'2xl'} >
                     {name}
                 </Heading>
+                <Heading fontWeight={'md'} fontSize={'lg'} color={'gray.500'} >
+                    {role}
+                </Heading>
                 <Flex alignItems={'center'} color={'gray.800'} gap={2} >
                     <Icon as={MdOutlineEmail} w='5' h='5' />
                     <Text> {email} </Text>
+                </Flex>
+                <Flex alignItems={'center'} color={'gray.800'} gap={2} >
+                    <Icon as={LiaBirthdayCakeSolid} w='5' h='5' />
+                    <Text> {birthdate} </Text>
                 </Flex>
                 <Text fontSize={'sm'} color={'gray.500'}> Salary: {convertToRp(salary)} </Text>
 

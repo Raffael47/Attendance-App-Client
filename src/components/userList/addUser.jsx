@@ -13,6 +13,7 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai";
     const [show, setShow] = useState(false)
     const toast = useToast();
     const [ schedule, setSchedule ] = useState([]);
+    const [ roles, setRoles ] = useState([]);
 
     const handlePassword = () => setShow(!show)
     const token = localStorage.getItem('token');
@@ -27,7 +28,9 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai";
             .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
             .required("Password is required"),
         salary: Yup.string().required("Salary is required"),
-        ShiftId: Yup.number().required('Shift schedule is required')
+        ShiftId: Yup.number().required('Shift schedule is required'),
+        RoleId: Yup.number().required('Role is required'),
+        birthdate: Yup.string().required('Birthdate is required'),
     })
 
     const handleAddUser = async(value) => {
@@ -71,9 +74,28 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai";
             });
         }
     }
+    const handleRole = async() => {
+        try {
+            const { data } = await axios.get('http://localhost:8000/api/users/roles', {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            })
+            console.log(data)
+            setRoles(data.result);
+        } catch (err) {
+            toast({
+                status: 'error',
+                title: 'Failed to Get Role',
+                duration: 1500,
+                isClosable: true
+            });
+        }
+    }
 
     useEffect(() => {
         handleShift();
+        handleRole();
     }, []);
 
     return (
@@ -87,9 +109,10 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai";
             <ModalCloseButton />
 
             <Formik
-            initialValues={{ name: '', email: '', password: '', salary: 0, ShiftId: 0 }}
+            initialValues={{ name: '', email: '', password: '', salary: 0, ShiftId: 0, RoleId: 0, birthdate: '' }}
             validationSchema={registerSchema}
             onSubmit={(value) => {
+                console.log(value)
                 handleAddUser(value)
             }}
             >
@@ -107,6 +130,11 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai";
                                 <FormLabel>Email address</FormLabel>
                                 <Input as={Field} name='email' type="email" />
                                 <ErrorMessage name='email' component={'div'} style={{ color: 'red' }} />
+                            </FormControl>
+                            <FormControl id="birthdate">
+                                <FormLabel>Birthdate</FormLabel>
+                                <Input as={Field} name='birthdate' type="datetime-local" />
+                                <ErrorMessage name='birthdate' component={'div'} style={{ color: 'red' }} />
                             </FormControl>
                             <FormControl id="password">
                                 <FormLabel>Password</FormLabel>
@@ -128,6 +156,19 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlinePlus } from "react-icons/ai";
                                     })}
                                 </Field>
                                 <ErrorMessage name='ShiftId' component={'div'} style={{ color: 'red' }} />
+                            </FormControl>
+                            <FormControl id="RoleId">
+                                <FormLabel>Role</FormLabel>
+                                <Field as={Select} name='RoleId' w='100%' >
+                                    {roles.map(({id, role}, idx) => {
+                                        return (
+                                            <option key={idx} value={id}> 
+                                                {role}
+                                            </option>
+                                        )
+                                    })}
+                                </Field>
+                                <ErrorMessage name='RoleId' component={'div'} style={{ color: 'red' }} />
                             </FormControl>
                             <FormControl id="salary">
                                 <FormLabel>Salary</FormLabel>
